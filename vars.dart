@@ -6,6 +6,7 @@
  * Identifiers can contain alphabets and numbers.
  * Identifiers cannot contain spaces and special characters, except the underscore (_) and the dollar ($) sign.
  * Variable names cannot begin with a number
+ * Variables in dart and flutter used lowerCamleCase
 */
 
 void main() {
