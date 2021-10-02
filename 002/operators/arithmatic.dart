@@ -12,8 +12,8 @@ void main() {
   res = num1 * num2;
   print("Multiplication: ${res}");
 
-  res = (num1 / num2).toInt();
-  print("Division: ${res}");
+  double res1 = (num1 / num2);
+  print("Division: ${res1}");
 
   res = num1 ~/ num2;
   print("Division returning Integer: ${res}");

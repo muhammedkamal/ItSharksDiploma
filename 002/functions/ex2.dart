@@ -6,10 +6,10 @@
 
 void main() {
   test_param(123);
-  test_param(122, s1: 25);
+  test_param(122, s2: 5, s1: 25);
 }
 
-void test_param(n1, {s1: 12}) {
+void test_param(n1, {s1: 12, s2: 0}) {
   print(n1);
   print(s1);
 }

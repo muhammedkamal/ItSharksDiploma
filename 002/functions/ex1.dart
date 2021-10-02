@@ -13,5 +13,6 @@ int factorial(int num) {
 }
 
 void main() {
-  print(factorial(5));
+  int muhammad = 50;
+  print(factorial(muhammad));
 }
