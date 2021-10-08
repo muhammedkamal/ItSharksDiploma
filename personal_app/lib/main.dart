@@ -69,37 +69,55 @@ class Home extends StatelessWidget {
               textAlign: TextAlign.center,
             ),
           ),
-          GestureDetector(
-            child: Card(
-              elevation: 10,
-              color: Colors.blueGrey,
-              //it was container padding: EdgeInsets.all(15.0),
-              margin: const EdgeInsets.symmetric(
-                vertical: 10.0,
-                horizontal: 15.0,
-              ),
-              child: Padding(
-                padding: const EdgeInsets.all(5.0),
-                child: ListTile(
-                  //it was a row children: <Widget>[
-                  leading: Icon(
-                    Icons.phone,
-                    color: Colors.blueGrey[900],
-                    size: 35.0,
-                  ),
-                  //SizedBox(width: 15.0,),
-                  title: const Text(
-                    '+201555786787',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 22.0,
-                    ),
-                  ),
-                ),
+          const ContactCard(
+            contactInfo: '+201555786787',
+            icon: Icons.phone,
+          ),
+          const ContactCard(
+            contactInfo: 'muhammedkamal022@gmail.com',
+            icon: Icons.email,
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class ContactCard extends StatelessWidget {
+  final String contactInfo;
+  final IconData icon;
+  const ContactCard({required this.contactInfo, required this.icon});
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      child: Card(
+        elevation: 10,
+        color: Colors.blueGrey,
+        //it was container padding: EdgeInsets.all(15.0),
+        margin: const EdgeInsets.symmetric(
+          vertical: 10.0,
+          horizontal: 15.0,
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(5.0),
+          child: ListTile(
+            //it was a row children: <Widget>[
+            leading: Icon(
+              icon,
+              color: Colors.blueGrey[900],
+              size: 35.0,
+            ),
+            //SizedBox(width: 15.0,),
+            title: Text(
+              contactInfo,
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 22.0,
               ),
             ),
           ),
-        ],
+        ),
       ),
     );
   }
