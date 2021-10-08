@@ -27,12 +27,17 @@ class Vehicle {
 
 // inheritance
 class Car extends Vehicle {
-  final String make;
+  final String carMake;
   final int model;
   final String color;
+  final int maxSpeed;
   Status _VehicleStatus = Status.stopped;
-  Car({required this.make, required this.model, required this.color})
-      : super(make: make, model: model, color: color);
+  Car(
+      {required this.carMake,
+      required this.model,
+      required this.color,
+      required this.maxSpeed})
+      : super(make: carMake, model: model, color: color);
 
   // Polymorphism
   @override
@@ -44,7 +49,8 @@ class Car extends Vehicle {
 
 void main() {
   // this how you declare an object of type class
-  Car car = Car(make: "Honda", model: 1999, color: "Black");
+  Vehicle car =
+      Car(carMake: "Honda", model: 1999, color: "Black", maxSpeed: 220);
   print(car.VehicleStatus);
   //this how to use setters
   car..status = Status.running;

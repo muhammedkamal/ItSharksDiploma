@@ -20,7 +20,7 @@ class Girl extends Person {
 }
 
 void main() {
-  Boy b = Boy(); // Creating Object of Boy class
+  Person b = Boy(); // Creating Object of Boy class
   Girl g = Girl(); // Creating Object of Girl class
 
   b.displayInfo();
