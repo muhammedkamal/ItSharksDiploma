@@ -40,8 +40,21 @@ class Home extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: const [
           CircleAvatar(
-            radius: 150,
+            minRadius: 50,
+            maxRadius: 150,
             backgroundImage: AssetImage("assets/images/personal.jpeg"),
+          ),
+          Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Text(
+              "MUHAMMAD KAMAL",
+              style: TextStyle(
+                fontSize: 25,
+                wordSpacing: 1.5,
+                letterSpacing: 1,
+              ),
+              textAlign: TextAlign.center,
+            ),
           ),
         ],
       ),
