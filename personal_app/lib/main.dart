@@ -38,13 +38,13 @@ class Home extends StatelessWidget {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         mainAxisAlignment: MainAxisAlignment.center,
-        children: const [
-          CircleAvatar(
+        children: [
+          const CircleAvatar(
             minRadius: 50,
             maxRadius: 150,
             backgroundImage: AssetImage("assets/images/personal.jpeg"),
           ),
-          Padding(
+          const Padding(
             padding: EdgeInsets.all(8.0),
             child: Text(
               "MUHAMMAD KAMAL",
@@ -56,7 +56,7 @@ class Home extends StatelessWidget {
               textAlign: TextAlign.center,
             ),
           ),
-          Padding(
+          const Padding(
             padding: EdgeInsets.all(8.0),
             child: Text(
               "Software Engineer",
@@ -67,6 +67,36 @@ class Home extends StatelessWidget {
                 fontWeight: FontWeight.bold,
               ),
               textAlign: TextAlign.center,
+            ),
+          ),
+          GestureDetector(
+            child: Card(
+              elevation: 10,
+              color: Colors.blueGrey,
+              //it was container padding: EdgeInsets.all(15.0),
+              margin: const EdgeInsets.symmetric(
+                vertical: 10.0,
+                horizontal: 15.0,
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(5.0),
+                child: ListTile(
+                  //it was a row children: <Widget>[
+                  leading: Icon(
+                    Icons.phone,
+                    color: Colors.blueGrey[900],
+                    size: 35.0,
+                  ),
+                  //SizedBox(width: 15.0,),
+                  title: const Text(
+                    '+201555786787',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 22.0,
+                    ),
+                  ),
+                ),
+              ),
             ),
           ),
         ],
