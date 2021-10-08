@@ -40,7 +40,8 @@ class Home extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: const [
           CircleAvatar(
-            backgroundColor: Colors.amber,
+            radius: 150,
+            backgroundImage: AssetImage("assets/images/personal.jpeg"),
           ),
         ],
       ),
