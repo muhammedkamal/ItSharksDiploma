@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 
 void main() {
   runApp(const MyApp());
@@ -76,6 +77,14 @@ class Home extends StatelessWidget {
           ContactCard(
             contactInfo: 'muhammedkamal022@gmail.com',
             icon: Icons.email,
+          ),
+          ContactCard(
+            contactInfo: 'muhammedkamal',
+            icon: FontAwesome.github,
+          ),
+          ContactCard(
+            contactInfo: 'muhammedkamal022',
+            icon: FontAwesome.facebook,
           ),
         ],
       ),
