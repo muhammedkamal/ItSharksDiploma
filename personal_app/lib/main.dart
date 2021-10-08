@@ -38,13 +38,13 @@ class Home extends StatelessWidget {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          const CircleAvatar(
+        children: const [
+          CircleAvatar(
             minRadius: 50,
             maxRadius: 150,
             backgroundImage: AssetImage("assets/images/personal.jpeg"),
           ),
-          const Padding(
+          Padding(
             padding: EdgeInsets.all(8.0),
             child: Text(
               "MUHAMMAD KAMAL",
@@ -56,7 +56,7 @@ class Home extends StatelessWidget {
               textAlign: TextAlign.center,
             ),
           ),
-          const Padding(
+          Padding(
             padding: EdgeInsets.all(8.0),
             child: Text(
               "Software Engineer",
@@ -69,11 +69,11 @@ class Home extends StatelessWidget {
               textAlign: TextAlign.center,
             ),
           ),
-          const ContactCard(
+          ContactCard(
             contactInfo: '+201555786787',
             icon: Icons.phone,
           ),
-          const ContactCard(
+          ContactCard(
             contactInfo: 'muhammedkamal022@gmail.com',
             icon: Icons.email,
           ),
