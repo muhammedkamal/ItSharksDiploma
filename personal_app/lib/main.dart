@@ -56,6 +56,19 @@ class Home extends StatelessWidget {
               textAlign: TextAlign.center,
             ),
           ),
+          Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Text(
+              "Software Engineer",
+              style: TextStyle(
+                fontSize: 20,
+                wordSpacing: 1.5,
+                color: Colors.blueGrey,
+                fontWeight: FontWeight.bold,
+              ),
+              textAlign: TextAlign.center,
+            ),
+          ),
         ],
       ),
     );
