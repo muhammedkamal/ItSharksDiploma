@@ -15,10 +15,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'ToDoly',
       theme: AppThemes.lightTheme,
-      home: HomeScreen(),
       routes: {
-        // '/' : (context)=>HomeScreen(),
-        '/add_task': (context) => AddTaskScreen(),
+        '/': (_) => HomeScreen(),
+        AddTaskScreen.routeName: (context) => AddTaskScreen(),
       },
     );
   }

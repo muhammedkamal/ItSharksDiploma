@@ -19,6 +19,7 @@ void main() {
     print("${num} is neither positive nor negative");
   }
   // type checking
+  print(num.runtimeType);
   if (num.runtimeType == int) {
     print("integer");
   } else {

@@ -4,7 +4,7 @@ class Vehicle {
   // feilds
   final String make;
   final int model;
-  final String color;
+  String color;
   Status _VehicleStatus = Status.stopped;
   // constractor
   Vehicle({required this.make, required this.model, required this.color});
@@ -49,8 +49,7 @@ class Car extends Vehicle {
 
 void main() {
   // this how you declare an object of type class
-  Vehicle car =
-      Car(carMake: "Honda", model: 1999, color: "Black", maxSpeed: 220);
+  Car car = Car(carMake: "Honda", model: 1999, color: "Black", maxSpeed: 220);
   print(car.VehicleStatus);
   //this how to use setters
   car..status = Status.running;

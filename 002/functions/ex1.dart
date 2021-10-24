@@ -1,5 +1,5 @@
 /**
- *return_type function_name(paramtype1 paramName1,paramType2 paramName2, ...... ) {  
+ *return_type function_name(paramtype1 paramName1,{requried paramType2 paramName2,} ...... ) {  
    //statements 
    //return  ;     
   }
@@ -13,6 +13,6 @@ int factorial(int num) {
 }
 
 void main() {
-  int muhammad = 50;
+  int muhammad = 5;
   print(factorial(muhammad));
 }

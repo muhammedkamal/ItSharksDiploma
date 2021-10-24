@@ -155,7 +155,7 @@ class ContactCard extends StatelessWidget {
   }
 
   final String contactText, url;
-  final iconData;
+  final IconData iconData;
   const ContactCard(
       {required this.contactText, required this.iconData, required this.url});
 
