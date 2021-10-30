@@ -3,12 +3,12 @@ import 'package:path/path.dart' as path;
 
 class DBHelper {
   static Future<sql.Database> database() async {
-    final dbpath = await sql.getDatabasesPath();
+    final String dbpath = await sql.getDatabasesPath();
     return await sql.openDatabase(
       path.join(dbpath, 'tasks.db'),
       onCreate: (db, version) {
         return db.execute(
-            'CREATE TABLE tasks(id TEXT PRIMARY KEY AUTOINCREMENT NOT NULL, title TEXT,is_done bool ,done_date TEXT)');
+            'CREATE TABLE tasks(id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, task_name TEXT,is_done bool ,done_date TEXT)');
       },
       version: 1,
     );

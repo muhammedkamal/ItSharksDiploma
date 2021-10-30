@@ -1,7 +1,9 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:flutter/material.dart';
+import 'package:sqflite/sqflite.dart';
 import 'package:todoly/data/models/task.dart';
+import 'package:todoly/logic/helpers/db_helper.dart';
 import 'package:todoly/persentaion/screens/done_screen.dart';
 import 'package:todoly/persentaion/screens/to_do_screen.dart';
 
@@ -15,12 +17,24 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  Database? db;
   List<Task> tasks = [
     Task(taskName: "eat breakfast"),
     Task(taskName: "drink cofee"),
     Task(taskName: "morining training"),
     Task(taskName: "Go to Work"),
   ];
+
+  @override
+  void initState() {
+    intilizeDB();
+    super.initState();
+  }
+
+  Future<void> intilizeDB() async {
+    db = await DBHelper.database();
+  }
+
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -33,7 +47,9 @@ class _HomeScreenState extends State<HomeScreen> {
             var text = await Navigator.of(context)
                 .pushNamed(AddTaskScreen.routeName) as String;
             setState(() {
-              tasks.add(Task(taskName: text));
+              final task = Task(taskName: text);
+              tasks.add(task);
+              print(task.toMap()['name']);
             });
           },
           child: Icon(Icons.add),

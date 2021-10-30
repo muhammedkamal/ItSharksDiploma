@@ -16,30 +16,45 @@ class AddTaskScreen extends StatelessWidget {
         child: Column(
           children: [
             Expanded(
-              child: TextField(
-                controller: taskNameController,
-                // onChanged: (val) {
-                //   print(val);
-                // },
-                //keyboardType: TextInputType.number,
-                //enabled: false,
-                decoration: InputDecoration(
-                  hintText: "Enter Task Name",
-                  label: Text("Task Name"),
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
-                    borderSide: BorderSide(
-                      color: Theme.of(context).colorScheme.secondary,
-                      width: 10,
+              child: Column(
+                children: [
+                  TextField(
+                    controller: taskNameController,
+                    // onChanged: (val) {
+                    //   print(val);
+                    // },
+                    //keyboardType: TextInputType.number,
+                    //enabled: false,
+                    decoration: InputDecoration(
+                      hintText: "Enter Task Name",
+                      label: Text("Task Name"),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: BorderSide(
+                          color: Theme.of(context).colorScheme.secondary,
+                          width: 10,
+                        ),
+                      ),
                     ),
                   ),
-                ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  TextButton(
+                    onPressed: () {},
+                    child: Text("Due Data"),
+                    style: TextButton.styleFrom(),
+                  ),
+                ],
               ),
             ),
             ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  primary: Theme.of(context).primaryColor,
+                ),
                 onPressed: () {
                   if (taskNameController.text != "") {
                     Navigator.of(context).pop(taskNameController.text);
