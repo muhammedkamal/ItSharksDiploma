@@ -1,9 +1,8 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:flutter/material.dart';
-import 'package:sqflite/sqflite.dart';
 import 'package:todoly/data/models/task.dart';
-import 'package:todoly/logic/helpers/db_helper.dart';
+import 'package:todoly/logic/providers/tasks_provider.dart';
 import 'package:todoly/persentaion/screens/done_screen.dart';
 import 'package:todoly/persentaion/screens/to_do_screen.dart';
 
@@ -17,13 +16,15 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  Database? db;
-  List<Task> tasks = [
+  //Database? db;
+  List<Task> tasks = [];
+  final TasksProvider tasksProvider = TasksProvider();
+  /* List<Task> tasks = [
     Task(taskName: "eat breakfast"),
     Task(taskName: "drink cofee"),
     Task(taskName: "morining training"),
     Task(taskName: "Go to Work"),
-  ];
+  ]; */
 
   @override
   void initState() {
@@ -32,7 +33,10 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Future<void> intilizeDB() async {
-    db = await DBHelper.database();
+    await tasksProvider.getTaksFromDB();
+    setState(() {
+      tasks = tasksProvider.tasks;
+    });
   }
 
   @override
@@ -46,10 +50,11 @@ class _HomeScreenState extends State<HomeScreen> {
                 .pushNamed(AddTaskScreen.routeName, arguments: tasks); */
             var text = await Navigator.of(context)
                 .pushNamed(AddTaskScreen.routeName) as String;
+            final task = Task(taskName: text);
+            await tasksProvider.addTaskToDB(task);
+
             setState(() {
-              final task = Task(taskName: text);
-              tasks.add(task);
-              print(task.toMap()['name']);
+              tasks = tasksProvider.tasks;
             });
           },
           child: Icon(Icons.add),
@@ -84,12 +89,13 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                   ),
                   trailing: Checkbox(
-                    onChanged: (val) {
+                    onChanged: (val) async {
+                      tasks[index].isDone = val!;
+                      tasks[index].doneTime = DateTime.now();
+                      await tasksProvider.updateTaskDoneTime(tasks[index]);
+
                       setState(() {
-                        tasks[index].isDone = val!;
-                        if (tasks[index].isDone) {
-                          tasks[index].doneTime = DateTime.now();
-                        }
+                        tasks = tasksProvider.tasks;
                       });
                     },
                     value: tasks[index].isDone,

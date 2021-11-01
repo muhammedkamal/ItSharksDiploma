@@ -8,15 +8,16 @@ class DBHelper {
       path.join(dbpath, 'tasks.db'),
       onCreate: (db, version) {
         return db.execute(
-            'CREATE TABLE tasks(id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, task_name TEXT,is_done bool ,done_date TEXT)');
+            'CREATE TABLE tasks(id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, task_name TEXT,is_done INTEGER ,done_date TEXT)');
       },
       version: 1,
     );
   }
 
-  static Future<void> insert(String table, Map<String, dynamic> data) async {
+  static Future<int> insert(String table, Map<String, dynamic> data) async {
     final db = await DBHelper.database();
-    db.insert(table, data, conflictAlgorithm: sql.ConflictAlgorithm.replace);
+    return db.insert(table, data,
+        conflictAlgorithm: sql.ConflictAlgorithm.replace);
   }
 
   static Future<List<Map<String, dynamic>>> getData(String table) async {
