@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:todoly/data/models/task.dart';
+import 'package:todoly/logic/providers/tasks_provider.dart';
 
 class DoneScreen extends StatelessWidget {
-  List<Task> tasks;
-  DoneScreen({Key? key, required this.tasks}) : super(key: key);
+  final TasksProvider tasksProvider;
+  DoneScreen({Key? key, required this.tasksProvider}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    List<Task> tasks = tasksProvider.tasks;
     tasks = tasks.where((element) => element.isDone == true).toList();
     return ListView.builder(
       itemBuilder: (context, index) {

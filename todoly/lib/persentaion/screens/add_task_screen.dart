@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:todoly/data/models/task.dart';
+import 'package:date_time_picker/date_time_picker.dart';
 
 class AddTaskScreen extends StatelessWidget {
   static const String routeName = "/addTask";
@@ -43,11 +44,19 @@ class AddTaskScreen extends StatelessWidget {
                   SizedBox(
                     height: 20,
                   ),
-                  TextButton(
-                    onPressed: () {},
-                    child: Text("Due Data"),
-                    style: TextButton.styleFrom(),
-                  ),
+                  /* DateTimePicker(
+                    type: DateTimePickerType.dateTime,
+                    initialValue: '',
+                    firstDate: DateTime(2000),
+                    lastDate: DateTime(2100),
+                    dateLabelText: 'Date',
+                    onChanged: (val) => print(DateTime.parse(val)),
+                    validator: (val) {
+                      print(val);
+                      return null;
+                    },
+                    onSaved: (val) => print(val),
+                  ), */
                 ],
               ),
             ),

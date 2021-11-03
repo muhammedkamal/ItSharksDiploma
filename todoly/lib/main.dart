@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:todoly/persentaion/screens/add_task_screen.dart';
-import 'package:todoly/persentaion/screens/home_screen.dart';
+import 'package:todoly/persentaion/screens/home_with_bottom_nav_bar.dart';
+import 'package:todoly/persentaion/ui_controllers/home_controller.dart';
 import 'package:todoly/persentaion/themes/app_themes.dart';
 
 void main() {
@@ -16,7 +17,7 @@ class MyApp extends StatelessWidget {
       title: 'ToDoly',
       theme: AppThemes.lightTheme,
       routes: {
-        '/': (_) => HomeScreen(),
+        '/': (_) => HomeWithNavBar(),
         AddTaskScreen.routeName: (context) => AddTaskScreen(),
       },
     );
