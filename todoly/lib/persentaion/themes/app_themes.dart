@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 class AppThemes {
+  static final ThemeData darkTheme = ThemeData.dark().copyWith();
   static final ThemeData lightTheme = ThemeData(
     tabBarTheme: const TabBarTheme(
       labelColor: Colors.black, /* labelStyle: TextStyle(fontSize: 25) */

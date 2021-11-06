@@ -172,6 +172,7 @@ class _HomeWithNavState extends State<HomeWithNav> {
  */
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:todoly/data/models/task.dart';
 import 'package:todoly/logic/providers/tasks_provider.dart';
 import 'package:todoly/persentaion/screens/all_tasks.dart';
@@ -192,43 +193,21 @@ class HomeWithNavBar extends StatefulWidget {
 /// This is the private State class that goes with HomeWithNavBar.
 class _HomeWithNavBarState extends State<HomeWithNavBar> {
   bool isLoading = true;
-  List<Task> tasks = [];
-  final TasksProvider tasksProvider = TasksProvider();
   TextEditingController taskNameController = TextEditingController();
 
   @override
   void initState() {
-    intilizeDB();
     super.initState();
-  }
-
-  Future<void> intilizeDB() async {
-    await tasksProvider.getTaksFromDB();
-    setState(() {
-      _widgetOptions = [
-        AllTasks(tasksProvider: tasksProvider),
-        ToDoScreen(
-          tasksProvider: tasksProvider,
-        ),
-        DoneScreen(
-          tasksProvider: tasksProvider,
-        ),
-      ];
-    });
-    setState(() {
-      tasks = tasksProvider.tasks;
-    });
-    Future.delayed(Duration(seconds: 1)).then((value) {
-      setState(() {
-        isLoading = false;
-      });
-    });
   }
 
   int _selectedIndex = 0;
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
-  static List<Widget> _widgetOptions = <Widget>[];
+  static List<Widget> _widgetOptions = <Widget>[
+    AllTasks(),
+    ToDoScreen(),
+    DoneScreen(),
+  ];
 
   void _onItemTapped(int index) {
     setState(() {
@@ -243,15 +222,13 @@ class _HomeWithNavBarState extends State<HomeWithNavBar> {
         onPressed: () async {
           /* Navigator.of(context)
                 .pushNamed(AddTaskScreen.routeName, arguments: tasks); */
-          var text = await Navigator.of(context)
+          /* var text = await Navigator.of(context)
               .pushNamed(AddTaskScreen.routeName) as String;
           final task = Task(taskName: text);
-          await tasksProvider.addTaskToDB(task);
-          setState(() {
-            tasks = tasksProvider.tasks;
-          });
-
-          /* showModalBottomSheet(
+          await Provider.of<TasksProvider>(context, listen: false)
+              .addTaskToDB(task);
+ */
+          showModalBottomSheet(
             context: context,
             isScrollControlled: true,
             builder: (context) => SingleChildScrollView(
@@ -298,10 +275,10 @@ class _HomeWithNavBarState extends State<HomeWithNavBar> {
                                 final task =
                                     Task(taskName: taskNameController.text);
                                 taskNameController.clear();
-                                await tasksProvider.addTaskToDB(task);
-                                setState(() {
-                                  tasks = tasksProvider.tasks;
-                                });
+                                await Provider.of<TasksProvider>(context,
+                                        listen: false)
+                                    .addTaskToDB(task);
+
                                 Navigator.of(context).pop();
                               },
                               child: Text(
@@ -320,7 +297,7 @@ class _HomeWithNavBarState extends State<HomeWithNavBar> {
                 ),
               ),
             ),
-          ); */
+          );
         },
         child: Icon(Icons.add),
       ),
