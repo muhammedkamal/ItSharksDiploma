@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:market_app/data/models/product.dart';
 import 'package:market_app/logic/providers/products_provider.dart';
+import 'package:market_app/presentation/screens/add_product_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   HomeScreen({Key? key}) : super(key: key);
@@ -20,7 +21,8 @@ class HomeScreen extends StatelessWidget {
         actions: [
           IconButton(
               onPressed: () {
-                //TODO :: Impelement function
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => AddProductScreen()));
               },
               icon: Icon(Icons.add))
         ],
