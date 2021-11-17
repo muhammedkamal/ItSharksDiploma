@@ -15,10 +15,10 @@ class Product {
   factory Product.fromJson(Map<String, dynamic> data) {
     return Product(
       name: data["name"],
-      amount: data["amount"],
+      amount: int.parse(data["amount"]),
       description: data["description"],
       imageUrl: data["imageUrl"],
-      price: data["price"],
+      price: double.parse(data["price"]),
     );
   }
   Map<String, dynamic> toMap(Product product) {

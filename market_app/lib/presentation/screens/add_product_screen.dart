@@ -1,5 +1,8 @@
+import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 
 class AddProductScreen extends StatefulWidget {
   AddProductScreen({Key? key}) : super(key: key);
@@ -10,8 +13,13 @@ class AddProductScreen extends StatefulWidget {
 
 class _AddProductScreenState extends State<AddProductScreen> {
   final _key = GlobalKey<FormState>();
+  File? imageFile;
+  final ImagePicker _picker = ImagePicker();
   bool _validating = false;
+  bool _uploading = false;
   Map<String, dynamic> data = {};
+  firebase_storage.FirebaseStorage storage =
+      firebase_storage.FirebaseStorage.instance;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -100,41 +108,124 @@ class _AddProductScreenState extends State<AddProductScreen> {
                   },
                   keyboardType: TextInputType.number,
                 ),
-                TextFormField(
-                  onChanged: (value) {
-                    setState(() {
-                      data['imageUrl'] = value;
-                    });
-                  },
-                  decoration: InputDecoration(
-                    hintText: "your product image Url",
-                    label: Text("Image Url"),
+                Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      TextButton(
+                          onPressed: () async {
+                            showDialog(
+                              context: context,
+                              builder: (_) => AlertDialog(
+                                title: Text("Choose image Source"),
+                                actions: [
+                                  TextButton(
+                                    onPressed: () async {
+                                      XFile? photo = await _picker.pickImage(
+                                          source: ImageSource.camera);
+                                      Navigator.of(context).pop();
+                                      try {
+                                        setState(() {
+                                          imageFile = File(photo!.path);
+                                        });
+                                      } catch (e) {
+                                        print(e);
+                                      }
+                                    },
+                                    child: Text("Camera"),
+                                  ),
+                                  TextButton(
+                                    onPressed: () async {
+                                      XFile? photo = await _picker.pickImage(
+                                          source: ImageSource.gallery);
+                                      Navigator.of(context).pop();
+                                      try {
+                                        setState(() {
+                                          imageFile = File(photo!.path);
+                                        });
+                                      } catch (e) {
+                                        print(e);
+                                      }
+                                    },
+                                    child: Text("Gallery"),
+                                  ),
+                                ],
+                              ),
+                            );
+                          },
+                          child: Text("Choose Image")),
+                      Container(
+                        width: 100,
+                        height: 100,
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                            width: 1,
+                            color: Colors.grey.shade300,
+                          ),
+                        ),
+                        child: imageFile == null
+                            ? Center(
+                                child: Text(
+                                  "No Image Choosen",
+                                  textAlign: TextAlign.center,
+                                ),
+                              )
+                            : Image.file(
+                                imageFile!,
+                                fit: BoxFit.cover,
+                              ),
+                      ),
+                    ],
                   ),
-                  validator: (value) {
-                    /* if (value!.length < 4) {
-                      return "Tile Can noy be less than 4 letters";
-                    } */
-                    return null;
-                  },
                 ),
-                ElevatedButton(
-                    onPressed: () async {
-                      if (_key.currentState!.validate()) {
-                        FirebaseFirestore.instance
-                            .collection('products')
-                            .add(data);
-                      } else {
-                        setState(() {
-                          _validating = true;
-                        });
-                      }
-                    },
-                    child: Text("Add Product"))
+                _uploading
+                    ? CircularProgressIndicator()
+                    : ElevatedButton(
+                        onPressed: () async {
+                          if (_key.currentState!.validate()) {
+                            setState(() {
+                              _uploading = true;
+                            });
+                            data['imageUrl'] =
+                                await uploadFile(imageFile!.path);
+                            await FirebaseFirestore.instance
+                                .collection('products')
+                                .add(data)
+                                .then((value) => print(value.id));
+                            setState(() {
+                              _uploading = false;
+                            });
+                            Navigator.of(context).pop();
+                          } else {
+                            setState(() {
+                              _validating = true;
+                            });
+                          }
+                        },
+                        child: Text("Add Product"),
+                      ),
               ],
             ),
           ),
         ),
       ),
     );
+  }
+
+  Future<String?> uploadFile(String filePath) async {
+    File file = File(filePath);
+    String? imageUrl;
+    try {
+      await firebase_storage.FirebaseStorage.instance
+          .ref('products/123${file.path}')
+          .putFile(file);
+      imageUrl = await firebase_storage.FirebaseStorage.instance
+          .ref('products/123${file.path}')
+          .getDownloadURL();
+    } on FirebaseException catch (e) {
+      // e.g, e.code == 'canceled'
+    }
+    return imageUrl;
   }
 }
