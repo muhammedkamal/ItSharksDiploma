@@ -1,34 +1,45 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 import '../../data/models/product.dart';
 
 class ProductsProvider {
-  List<Product> products = [
-    Product(
-        name: "test product",
-        amount: 5,
-        description: "description",
-        imageUrl:
-            "https://static.zara.net/photos///2021/I/0/2/p/6462/300/833/2/w/1920/6462300833_6_2_1.jpg?ts=1621523652099",
-        price: 12.5),
-    Product(
-        name: "test product",
-        amount: 5,
-        description: "description",
-        imageUrl:
-            "https://static.zara.net/photos///2021/I/0/2/p/6462/300/833/2/w/1920/6462300833_6_2_1.jpg?ts=1621523652099",
-        price: 12.5),
-    Product(
-        name: "test product",
-        amount: 5,
-        description: "description",
-        imageUrl:
-            "https://static.zara.net/photos///2021/I/0/2/p/6462/300/833/2/w/1920/6462300833_6_2_1.jpg?ts=1621523652099",
-        price: 12.5),
-    Product(
-        name: "test product",
-        amount: 5,
-        description: "description",
-        imageUrl:
-            "https://static.zara.net/photos///2021/I/0/2/p/6462/300/833/2/w/1920/6462300833_6_2_1.jpg?ts=1621523652099",
-        price: 12.5),
-  ];
+  final productsCollection = FirebaseFirestore.instance.collection("products");
+  List<Product> products = [];
+  Future<bool> addNewProduct(Map<String, dynamic> product) async {
+    try {
+      await productsCollection.add(product);
+    } catch (e) {
+      return false;
+    }
+    return true;
+  }
+
+  Future<bool> deleteProduct(String productId) async {
+    try {
+      await productsCollection.doc(productId).delete();
+    } catch (e) {
+      return false;
+    }
+    return true;
+  }
+
+  Future<List<Product>> getProductsFromFirebase() async {
+    final snapShot = await productsCollection.get();
+
+    for (var item in snapShot.docs) {
+      products.add(Product.fromSnapshot(item));
+    }
+    return products;
+  }
+
+  Future<bool> updateProduct(Product product) async {
+    try {
+      await productsCollection.doc(product.id).update(
+            product.toMap(product),
+          );
+    } catch (e) {
+      return false;
+    }
+    return true;
+  }
 }

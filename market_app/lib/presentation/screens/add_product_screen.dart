@@ -1,8 +1,12 @@
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
+import 'package:market_app/logic/blocs/auth_bloc/auth_bloc.dart';
+import 'package:market_app/logic/blocs/products_bloc/product_bloc.dart';
+import 'package:path/path.dart' as p;
 
 class AddProductScreen extends StatefulWidget {
   AddProductScreen({Key? key}) : super(key: key);
@@ -189,10 +193,11 @@ class _AddProductScreenState extends State<AddProductScreen> {
                             });
                             data['imageUrl'] =
                                 await uploadFile(imageFile!.path);
-                            await FirebaseFirestore.instance
-                                .collection('products')
-                                .add(data)
-                                .then((value) => print(value.id));
+                            data['user_id'] = BlocProvider.of<AuthBloc>(context)
+                                .userProvider
+                                .getUserId();
+                            BlocProvider.of<ProductsBloc>(context)
+                                .add(AddProduct(data));
                             setState(() {
                               _uploading = false;
                             });
@@ -218,10 +223,10 @@ class _AddProductScreenState extends State<AddProductScreen> {
     String? imageUrl;
     try {
       await firebase_storage.FirebaseStorage.instance
-          .ref('products/123${file.path}')
+          .ref('products/123456${p.extension(file.path)}')
           .putFile(file);
       imageUrl = await firebase_storage.FirebaseStorage.instance
-          .ref('products/123${file.path}')
+          .ref('products/123456${p.extension(file.path)}')
           .getDownloadURL();
     } on FirebaseException catch (e) {
       // e.g, e.code == 'canceled'

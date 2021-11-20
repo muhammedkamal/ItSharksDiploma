@@ -1,20 +1,27 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:market_app/data/models/product.dart';
-import 'package:market_app/logic/providers/products_provider.dart';
+import 'package:market_app/logic/blocs/auth_bloc/auth_bloc.dart';
+import 'package:market_app/logic/blocs/products_bloc/product_bloc.dart';
 import 'package:market_app/presentation/screens/add_product_screen.dart';
+import 'package:market_app/presentation/screens/auth_screen.dart';
+import 'package:market_app/presentation/screens/single_producr.dart';
 
 class HomeScreen extends StatelessWidget {
   HomeScreen({Key? key}) : super(key: key);
-  final List<Product> products = ProductsProvider().products;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: Drawer(
-        child: Column(
-          children: [
-            Text("Orders"),
-          ],
+        child: SafeArea(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              TextButton(onPressed: () {}, child: Text("Orders")),
+            ],
+          ),
         ),
       ),
       appBar: AppBar(
@@ -23,12 +30,80 @@ class HomeScreen extends StatelessWidget {
           IconButton(
               onPressed: () {
                 Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => AddProductScreen()));
+                    builder: (context) => BlocProvider.of<AuthBloc>(context)
+                            .state is Authunticated
+                        ? AddProductScreen()
+                        : AuthScreen()));
               },
               icon: Icon(Icons.add))
         ],
       ),
-      body: StreamBuilder<QuerySnapshot>(
+      body: RefreshIndicator(
+        onRefresh: () async {
+          BlocProvider.of<ProductsBloc>(context).add(LoadAllProducts());
+        },
+        child: BlocBuilder<ProductsBloc, ProductsState>(
+          builder: (context, state) {
+            final _ProductsBloc = BlocProvider.of<ProductsBloc>(context);
+            if (state is ProductInitial) {
+              _ProductsBloc.add(LoadAllProducts());
+            } else if (state is ProductsLoading) {
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            } else if (state is ProductsLoadingFailed) {
+              return const Center(
+                child: Text("Unexpected error occured pull down to refersh!"),
+              );
+            } else if (state is ProductsLoaded) {
+              List<Product> products = state.productsList;
+              return GridView.builder(
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    childAspectRatio: 2 / 3,
+                    crossAxisSpacing: 10,
+                    mainAxisSpacing: 5),
+                itemBuilder: (context, itemIndex) => InkWell(
+                  onTap: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) =>
+                            ProductDetailScreen(products[itemIndex].id!)));
+                  },
+                  child: GridTile(
+                    header: Container(
+                      color: const Color.fromRGBO(0, 0, 0, 0.4),
+                      child: ListTile(
+                        tileColor: const Color.fromRGBO(0, 0, 0, 0.6),
+                        leading: IconButton(
+                          icon: const Icon(Icons.favorite),
+                          onPressed: () {},
+                        ),
+                        trailing: IconButton(
+                          icon: const Icon(Icons.shopping_basket),
+                          onPressed: () {},
+                        ),
+                      ),
+                    ),
+                    child: Hero(
+                      tag: products[itemIndex].id!,
+                      child: Image.network(
+                        products[itemIndex].imageUrl,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ),
+                ),
+                itemCount: products.length,
+              );
+            }
+            return Container();
+          },
+        ),
+      ),
+    );
+  }
+}
+/* StreamBuilder<QuerySnapshot>(
           stream: FirebaseFirestore.instance.collection("products").snapshots(),
           builder: (context, snapshot) {
             if (snapshot.hasError) {
@@ -46,10 +121,7 @@ class HomeScreen extends StatelessWidget {
               );
             }
             for (var document in snapshot.data!.docs) {
-              Map<String, dynamic> productFormFireStore =
-                  document.data()! as Map<String, dynamic>;
-              print(productFormFireStore);
-              products.add(Product.fromJson(productFormFireStore));
+              products.add(Product.fromSnapshot(document));
               products.last.id = document.id;
             }
             return GridView.builder(
@@ -80,7 +152,4 @@ class HomeScreen extends StatelessWidget {
               ),
               itemCount: products.length,
             );
-          }),
-    );
-  }
-}
+          }), */
