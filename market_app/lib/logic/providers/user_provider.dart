@@ -44,7 +44,7 @@ class UserProvider {
     return true;
   }
 
-  Future<String> getUserId() async {
+  String getUserId() {
     return _firebaseAuth.currentUser!.uid;
   }
 }

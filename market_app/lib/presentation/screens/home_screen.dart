@@ -2,10 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:market_app/data/models/product.dart';
 import 'package:market_app/logic/blocs/auth_bloc/auth_bloc.dart';
+import 'package:market_app/logic/blocs/cart_bloc/cart_bloc.dart';
 import 'package:market_app/logic/blocs/products_bloc/product_bloc.dart';
+import 'package:market_app/logic/providers/cart_provider.dart';
 import 'package:market_app/presentation/screens/add_product_screen.dart';
 import 'package:market_app/presentation/screens/auth_screen.dart';
+import 'package:market_app/presentation/screens/cart_screen.dart';
 import 'package:market_app/presentation/screens/single_producr.dart';
+import 'package:market_app/presentation/widgets/app_drawer.dart';
 
 class HomeScreen extends StatelessWidget {
   HomeScreen({Key? key}) : super(key: key);
@@ -13,29 +17,24 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: Drawer(
-        child: SafeArea(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              TextButton(onPressed: () {}, child: Text("Orders")),
-            ],
-          ),
-        ),
-      ),
+      drawer: AppDrawer(),
       appBar: AppBar(
         title: Text("Market App"),
         actions: [
           IconButton(
               onPressed: () {
-                Navigator.of(context).push(MaterialPageRoute(
+                Navigator.of(context).push(
+                  MaterialPageRoute(
                     builder: (context) => BlocProvider.of<AuthBloc>(context)
                             .state is Authunticated
-                        ? AddProductScreen()
-                        : AuthScreen()));
+                        ? AuthScreen()
+                        : CartScreen(),
+                  ),
+                );
               },
-              icon: Icon(Icons.add))
+              icon: Icon(
+                Icons.shopping_cart,
+              ))
         ],
       ),
       body: RefreshIndicator(
@@ -43,6 +42,9 @@ class HomeScreen extends StatelessWidget {
           BlocProvider.of<ProductsBloc>(context).add(LoadAllProducts());
         },
         child: BlocBuilder<ProductsBloc, ProductsState>(
+          buildWhen: (old, newSteate) {
+            return old != newSteate;
+          },
           builder: (context, state) {
             final _ProductsBloc = BlocProvider.of<ProductsBloc>(context);
             if (state is ProductInitial) {
@@ -78,9 +80,29 @@ class HomeScreen extends StatelessWidget {
                           icon: const Icon(Icons.favorite),
                           onPressed: () {},
                         ),
-                        trailing: IconButton(
-                          icon: const Icon(Icons.shopping_basket),
-                          onPressed: () {},
+                        trailing: BlocBuilder<CartBloc, CartState>(
+                          builder: (context, state) {
+                            var isContained =
+                                RepositoryProvider.of<CartProvider>(context)
+                                    .items
+                                    .containsKey(products[itemIndex].id!);
+                            return IconButton(
+                              icon: Icon(
+                                Icons.shopping_cart,
+                                color: isContained ? Colors.red : null,
+                              ),
+                              onPressed: () {
+                                if (isContained) {
+                                  BlocProvider.of<CartBloc>(context).add(
+                                      RemoveProductFromCart(
+                                          products[itemIndex].id!));
+                                } else {
+                                  BlocProvider.of<CartBloc>(context).add(
+                                      AddProductToCart(products[itemIndex]));
+                                }
+                              },
+                            );
+                          },
                         ),
                       ),
                     ),

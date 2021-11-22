@@ -6,6 +6,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:market_app/logic/blocs/auth_bloc/auth_bloc.dart';
 import 'package:market_app/logic/blocs/products_bloc/product_bloc.dart';
+import 'package:market_app/logic/providers/user_provider.dart';
 import 'package:path/path.dart' as p;
 
 class AddProductScreen extends StatefulWidget {
@@ -193,9 +194,10 @@ class _AddProductScreenState extends State<AddProductScreen> {
                             });
                             data['imageUrl'] =
                                 await uploadFile(imageFile!.path);
-                            data['user_id'] = BlocProvider.of<AuthBloc>(context)
-                                .userProvider
-                                .getUserId();
+                            data['owner_id'] =
+                                await RepositoryProvider.of<UserProvider>(
+                                        context)
+                                    .getUserId();
                             BlocProvider.of<ProductsBloc>(context)
                                 .add(AddProduct(data));
                             setState(() {

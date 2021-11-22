@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:market_app/data/models/product.dart';
+import 'package:market_app/logic/blocs/products_bloc/product_bloc.dart';
 
 class UserProductItem extends StatelessWidget {
-  final String productId;
-  UserProductItem(this.productId);
+  final Product product;
+  UserProductItem(this.product);
   @override
   Widget build(BuildContext context) {
     final scaffold = ScaffoldMessenger.of(context);
     return ListTile(
       leading: CircleAvatar(
-        backgroundImage: NetworkImage("prod.imageUrl"),
+        backgroundImage: NetworkImage(product.imageUrl),
       ),
-      title: Text("prod.title"),
+      title: Text(product.name),
       trailing: Container(
         width: 100,
         child: Row(
@@ -28,7 +31,10 @@ class UserProductItem extends StatelessWidget {
                 color: Colors.red,
               ),
               onPressed: () async {
-                try {} catch (_) {
+                try {
+                  BlocProvider.of<ProductsBloc>(context)
+                      .add(DeleteProduct(product.id!));
+                } catch (_) {
                   scaffold.showSnackBar(
                     SnackBar(
                       content: Text('Delete has Failed!'),

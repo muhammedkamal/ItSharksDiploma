@@ -9,6 +9,7 @@ class ProductsProvider {
     try {
       await productsCollection.add(product);
     } catch (e) {
+      print(e);
       return false;
     }
     return true;
@@ -25,9 +26,13 @@ class ProductsProvider {
 
   Future<List<Product>> getProductsFromFirebase() async {
     final snapShot = await productsCollection.get();
-
-    for (var item in snapShot.docs) {
-      products.add(Product.fromSnapshot(item));
+    products = [];
+    try {
+      for (var item in snapShot.docs) {
+        products.add(Product.fromSnapshot(item));
+      }
+    } catch (e) {
+      rethrow;
     }
     return products;
   }

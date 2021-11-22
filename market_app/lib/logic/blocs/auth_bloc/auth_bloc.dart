@@ -9,7 +9,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final UserProvider userProvider;
   AuthBloc(this.userProvider) : super(AuthInitial()) {
     on<AuthEvent>((event, emit) async {
-      emit(AuthLoading());
       if (event is AuthUsingEmailAndPassword) {
         emit(AuthLoading());
         await userProvider.authenticate(mail: event.email, password: event.pass)

@@ -40,7 +40,6 @@ class AuthScreen extends StatelessWidget {
                     style: TextStyle(
                       color: Colors.amber,
                       fontSize: 50,
-                      fontFamily: 'Anton',
                       fontWeight: FontWeight.normal,
                     ),
                   ),
@@ -70,7 +69,6 @@ class AuthCard extends StatefulWidget {
 class _AuthCardState extends State<AuthCard> {
   final GlobalKey<FormState> _formKey = GlobalKey();
   AuthMode _authMode = AuthMode.Login;
-  var _isLoading = false;
   final emailController = TextEditingController();
   final _passwordController = TextEditingController();
 

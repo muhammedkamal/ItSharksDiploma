@@ -1,3 +1,5 @@
+import 'package:market_app/data/models/product.dart';
+
 class CartItem {
   String id, title;
   int quantity;

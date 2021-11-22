@@ -1,11 +1,11 @@
 import 'cart.dart';
 
-class OrderItem {
+class Order {
   final String id;
   final double amount;
   final List<CartItem> cartItems;
   final DateTime dateTime;
-  OrderItem({
+  Order({
     required this.id,
     required this.amount,
     required this.cartItems,

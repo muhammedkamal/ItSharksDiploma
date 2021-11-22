@@ -3,9 +3,10 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 
 import 'package:intl/intl.dart';
+import 'package:market_app/data/models/order.dart';
 
 class OrderItem extends StatefulWidget {
-  final order;
+  final Order order;
   OrderItem(this.order);
 
   @override
@@ -40,26 +41,28 @@ class _OrderItemState extends State<OrderItem> {
               height: min(widget.order.cartItems.length * 20.0 + 10, 180),
               child: ListView(
                 children: widget.order.cartItems
-                    .map((prod) => Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              prod.title,
-                              style: TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
-                              ),
+                    .map(
+                      (prod) => Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            prod.title,
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
                             ),
-                            Text(
-                              '${prod.quantity}x \$${prod.price}',
-                              style: TextStyle(
-                                fontSize: 18,
-                                color: Colors.grey,
-                              ),
-                            )
-                          ],
-                        ))
-                    .toList(),
+                          ),
+                          Text(
+                            '${prod.quantity}x \$${prod.price}',
+                            style: TextStyle(
+                              fontSize: 18,
+                              color: Colors.grey,
+                            ),
+                          )
+                        ],
+                      ),
+                    )
+                    .toList() as List<Widget>,
               ),
             )
         ],

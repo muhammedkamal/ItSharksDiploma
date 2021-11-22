@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-
-import 'package:provider/provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:market_app/logic/providers/cart_provider.dart';
 
 class CartItem extends StatelessWidget {
   final String id, title, productId;
@@ -42,6 +42,8 @@ class CartItem extends StatelessWidget {
             actions: [
               TextButton(
                 onPressed: () {
+                  RepositoryProvider.of<CartProvider>(context)
+                      .removeItem(productId);
                   Navigator.of(context).pop(true);
                 },
                 child: Text(
