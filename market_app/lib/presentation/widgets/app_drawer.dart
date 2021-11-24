@@ -31,8 +31,8 @@ class AppDrawer extends StatelessWidget {
               Navigator.of(context).pushReplacement(MaterialPageRoute(
                   builder: (context) =>
                       BlocProvider.of<AuthBloc>(context).state is Authunticated
-                          ? AuthScreen()
-                          : const OrdersScreen()));
+                          ? const OrdersScreen()
+                          : AuthScreen()));
             },
           ),
           Divider(),
@@ -40,11 +40,14 @@ class AppDrawer extends StatelessWidget {
             leading: Icon(Icons.edit),
             title: Text('Manage Your Products'),
             onTap: () {
-              Navigator.of(context).pushReplacement(MaterialPageRoute(
+              Navigator.of(context).pushReplacement(
+                MaterialPageRoute(
                   builder: (context) =>
                       BlocProvider.of<AuthBloc>(context).state is Authunticated
-                          ? AuthScreen()
-                          : UserProductsScreen()));
+                          ? UserProductsScreen()
+                          : AuthScreen(),
+                ),
+              );
             },
           ),
           Divider(),

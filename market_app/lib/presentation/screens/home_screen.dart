@@ -27,8 +27,8 @@ class HomeScreen extends StatelessWidget {
                   MaterialPageRoute(
                     builder: (context) => BlocProvider.of<AuthBloc>(context)
                             .state is Authunticated
-                        ? AuthScreen()
-                        : CartScreen(),
+                        ? CartScreen()
+                        : AuthScreen(),
                   ),
                 );
               },

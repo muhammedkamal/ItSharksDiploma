@@ -34,6 +34,11 @@ class UserProductItem extends StatelessWidget {
                 try {
                   BlocProvider.of<ProductsBloc>(context)
                       .add(DeleteProduct(product.id!));
+                  scaffold.showSnackBar(
+                    SnackBar(
+                      content: Text('Delete has ocuured!'),
+                    ),
+                  );
                 } catch (_) {
                   scaffold.showSnackBar(
                     SnackBar(

@@ -5,6 +5,7 @@ import 'package:market_app/logic/blocs/auth_bloc/auth_bloc.dart';
 import 'package:market_app/logic/blocs/cart_bloc/cart_bloc.dart';
 import 'package:market_app/logic/blocs/orders_bloc/orders_bloc.dart';
 import 'package:market_app/logic/blocs/products_bloc/product_bloc.dart';
+import 'package:market_app/logic/notifications_manger.dart';
 import 'package:market_app/logic/providers/cart_provider.dart';
 import 'package:market_app/logic/providers/order_provider.dart';
 import 'package:market_app/logic/providers/products_provider.dart';
@@ -17,8 +18,25 @@ void main() async {
   runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   MyApp({Key? key}) : super(key: key);
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  @override
+  void initState() {
+    super.initState();
+    initNotificaion();
+  }
+
+  Future<void> initNotificaion() async {
+    NotificationsManger notificationsManger = NotificationsManger();
+    await notificationsManger.firebaseInit();
+  }
+
   @override
   Widget build(BuildContext context) {
     return RepositoryProvider(
