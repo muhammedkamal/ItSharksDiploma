@@ -8,7 +8,6 @@ import 'package:market_app/logic/blocs/products_bloc/product_bloc.dart';
 import 'package:market_app/logic/notifications_manger.dart';
 import 'package:market_app/logic/providers/cart_provider.dart';
 import 'package:market_app/logic/providers/order_provider.dart';
-import 'package:market_app/logic/providers/products_provider.dart';
 import 'package:market_app/logic/providers/user_provider.dart';
 import 'presentation/screens/home_screen.dart';
 
@@ -29,12 +28,13 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
-    initNotificaion();
+    initFirebaseNotification();
   }
 
-  Future<void> initNotificaion() async {
+  Future<void> initFirebaseNotification() async {
     NotificationsManger notificationsManger = NotificationsManger();
     await notificationsManger.firebaseInit();
+    await notificationsManger.getToken();
   }
 
   @override

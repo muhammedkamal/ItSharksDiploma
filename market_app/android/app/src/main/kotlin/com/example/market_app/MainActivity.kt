@@ -1,4 +1,4 @@
-package com.example.market_app
+package com.itsharks.market
 
 import io.flutter.embedding.android.FlutterActivity
 

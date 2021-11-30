@@ -35,9 +35,10 @@ class UserProvider {
       {required String mail, required String password}) async {
     try {
       print("here");
-      await _firebaseAuth
+      var userCr = await _firebaseAuth
           .signInWithEmailAndPassword(email: mail, password: password)
           .then((value) => print(value));
+      print(await _firebaseAuth.currentUser!.getIdToken());
     } catch (e) {
       return false;
     }

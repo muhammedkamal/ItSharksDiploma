@@ -1,7 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.market_app">
+    package="com.itsharks.market">
+    <uses-permission android:name="android.permission.INTERNET"/>
    <application
-        android:label="market_app"
+        android:label="Market App"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"

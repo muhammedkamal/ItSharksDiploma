@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:market_app/logic/blocs/auth_bloc/auth_bloc.dart';
-import 'package:market_app/presentation/screens/home_screen.dart';
 
 enum AuthMode { Signup, Login }
 
@@ -122,7 +121,7 @@ class _AuthCardState extends State<AuthCard> {
     return BlocConsumer<AuthBloc, AuthState>(
       listener: (context, state) {
         if (state is Authunticated) {
-          Navigator.of(context).pop();
+          Navigator.of(context).pushNamed("/");
         }
       },
       builder: (context, state) {
