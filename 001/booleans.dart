@@ -13,9 +13,9 @@ void main() {
   // that ccauses an error because string is not a bool
 
   var str = 'abc';
-  /* if(str) { 
-      print('String is not empty'); 
-   } else { 
-      print('Empty String'); 
-   } */
+  // if(str) {
+  //     print('String is not empty');
+  //  } else {
+  //     print('Empty String');
+  //  }
 }

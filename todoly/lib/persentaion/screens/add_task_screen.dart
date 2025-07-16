@@ -62,7 +62,7 @@ class AddTaskScreen extends StatelessWidget {
             ),
             ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  primary: Theme.of(context).primaryColor,
+                  backgroundColor: Theme.of(context).primaryColor,
                 ),
                 onPressed: () {
                   if (taskNameController.text != "") {

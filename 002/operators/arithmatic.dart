@@ -12,6 +12,9 @@ void main() {
   res = num1 * num2;
   print("Multiplication: ${res}");
 
+  // Division
+  // Note: In Dart, division of integers results in a double.
+  // res = num1 / num2; // this will give a double result
   double res1 = (num1 / num2);
   print("Division: ${res1}");
 

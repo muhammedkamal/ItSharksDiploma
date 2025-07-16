@@ -5,6 +5,7 @@
 void main() {
   // that will work
   int num1 = 10;
+  // num1 = 20.5; // reassigning a value
   double num2 = 10.50;
   print(num1);
   print(num2);
@@ -18,7 +19,7 @@ void main() {
   print(int.parse(num3));
 
   // that will not work
-  // print(num.parse('12A'));   run time error if you uncommented that
+  // print(num.parse('12A')); // run time error if you uncommented that
 
   // what if I want only 3 numbers after decimal point ??
   // easy besy

@@ -12,6 +12,7 @@
 void main() {
   // that will work
   var name = 'Smith';
+  name = 'John'; // reassigning a value
   int num = 10;
   print(name);
   print(num);
@@ -30,9 +31,11 @@ void main() {
 
   // that will work
   final val1 = 12;
+  // val1 = 13; // reassigning a value // that will cause an error if you uncommented this line
   print(val1);
   const pi = 3.14;
-  const area = pi * 12 * 12;
+  // pi = 3.14159; // reassigning a value // that will cause an error if you uncommented this line
+  const area = pi * 12 * 12; // area of circle with radius 12
   print("The output is ${area}");
 
   // that will cause error

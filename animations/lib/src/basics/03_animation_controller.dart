@@ -9,12 +9,10 @@ class AnimationControllerDemo extends StatefulWidget {
   static const String routeName = '/basics/animation_controller';
 
   @override
-  _AnimationControllerDemoState createState() =>
-      _AnimationControllerDemoState();
+  _AnimationControllerDemoState createState() => _AnimationControllerDemoState();
 }
 
-class _AnimationControllerDemoState extends State<AnimationControllerDemo>
-    with SingleTickerProviderStateMixin {
+class _AnimationControllerDemoState extends State<AnimationControllerDemo> with SingleTickerProviderStateMixin {
   // Using the SingleTickerProviderStateMixin can ensure that our
   // AnimationController only animates while the Widget is visible on the
   // screen. This is a useful optimization that saves resources when the
@@ -65,7 +63,7 @@ class _AnimationControllerDemoState extends State<AnimationControllerDemo>
               constraints: const BoxConstraints(maxWidth: 200),
               child: Text(
                 controller.value.toStringAsFixed(2),
-                style: Theme.of(context).textTheme.headline3,
+                style: Theme.of(context).textTheme.displaySmall,
                 textScaleFactor: 1 + controller.value,
               ),
             ),

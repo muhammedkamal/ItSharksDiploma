@@ -17,5 +17,5 @@ void main() {
   print('num1 not equal to num2 ::  ' + res.toString());
 
   res = num1 == num2;
-  print('num1 equal to num2 ::  ' + res.toString());
+  print('num1 equal to num2 ::  $res');
 }

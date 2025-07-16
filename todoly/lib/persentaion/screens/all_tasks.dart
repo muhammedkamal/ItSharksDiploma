@@ -12,8 +12,7 @@ class AllTasks extends StatelessWidget {
   Widget build(BuildContext context) {
     tasks = Provider.of<TasksProvider>(context).tasks;
     return FutureBuilder(
-        future:
-            Provider.of<TasksProvider>(context, listen: false).getTaksFromDB(),
+        future: Provider.of<TasksProvider>(context, listen: false).getTaksFromDB(),
         builder: (context, snapshot) {
           return snapshot.hasData
               ? ListView.builder(
@@ -21,10 +20,8 @@ class AllTasks extends StatelessWidget {
                     return ListTile(
                       title: Text(
                         tasks[index].taskName,
-                        style: Theme.of(context).textTheme.bodyText2!.copyWith(
-                              decoration: tasks[index].isDone
-                                  ? TextDecoration.lineThrough
-                                  : null,
+                        style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                              decoration: tasks[index].isDone ? TextDecoration.lineThrough : null,
                             ),
                       ),
                       trailing: Checkbox(
@@ -34,9 +31,7 @@ class AllTasks extends StatelessWidget {
                             tasks[index].doneTime = DateTime.now();
                           }
 
-                          await Provider.of<TasksProvider>(context,
-                                  listen: false)
-                              .updateTask(tasks[index]);
+                          await Provider.of<TasksProvider>(context, listen: false).updateTask(tasks[index]);
                         },
                         value: tasks[index].isDone,
                       ),

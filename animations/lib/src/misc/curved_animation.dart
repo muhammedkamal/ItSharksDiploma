@@ -20,8 +20,7 @@ class CurveChoice {
   const CurveChoice({required this.curve, required this.name});
 }
 
-class _CurvedAnimationDemoState extends State<CurvedAnimationDemo>
-    with SingleTickerProviderStateMixin {
+class _CurvedAnimationDemoState extends State<CurvedAnimationDemo> with SingleTickerProviderStateMixin {
   late final AnimationController controller;
   late final Animation<double> animationRotation;
   late final Animation<Offset> animationTranslation;
@@ -94,12 +93,11 @@ class _CurvedAnimationDemoState extends State<CurvedAnimationDemo>
           const SizedBox(height: 20.0),
           Text(
             'Select Curve for forward motion',
-            style: Theme.of(context).textTheme.headline6,
+            style: Theme.of(context).textTheme.titleLarge,
           ),
           DropdownButton<CurveChoice>(
             items: curves.map((curve) {
-              return DropdownMenuItem<CurveChoice>(
-                  value: curve, child: Text(curve.name));
+              return DropdownMenuItem<CurveChoice>(value: curve, child: Text(curve.name));
             }).toList(),
             onChanged: (newCurve) {
               if (newCurve != null) {
@@ -114,12 +112,11 @@ class _CurvedAnimationDemoState extends State<CurvedAnimationDemo>
           const SizedBox(height: 15.0),
           Text(
             'Select Curve for reverse motion',
-            style: Theme.of(context).textTheme.headline6,
+            style: Theme.of(context).textTheme.titleLarge,
           ),
           DropdownButton<CurveChoice>(
             items: curves.map((curve) {
-              return DropdownMenuItem<CurveChoice>(
-                  value: curve, child: Text(curve.name));
+              return DropdownMenuItem<CurveChoice>(value: curve, child: Text(curve.name));
             }).toList(),
             onChanged: (newCurve) {
               if (newCurve != null) {

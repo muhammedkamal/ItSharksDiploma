@@ -16,6 +16,6 @@ void main() {
   // add new key:value
   countCodes['fr'] = 13;
   // add new entry if absent
-  countCodes.putIfAbsent('ksa', () => 99);
+  countCodes.putIfAbsent('KSA', () => 99);
   print(countCodes);
 }

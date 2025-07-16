@@ -51,57 +51,25 @@ final basicDemos = [
       name: 'Animation Controller',
       route: AnimationControllerDemo.routeName,
       builder: (context) => const AnimationControllerDemo()),
+  Demo(name: 'Tweens', route: TweenDemo.routeName, builder: (context) => const TweenDemo()),
   Demo(
-      name: 'Tweens',
-      route: TweenDemo.routeName,
-      builder: (context) => const TweenDemo()),
-  Demo(
-      name: 'AnimatedBuilder',
-      route: AnimatedBuilderDemo.routeName,
-      builder: (context) => const AnimatedBuilderDemo()),
-  Demo(
-      name: 'Custom Tween',
-      route: CustomTweenDemo.routeName,
-      builder: (context) => const CustomTweenDemo()),
-  Demo(
-      name: 'Tween Sequences',
-      route: TweenSequenceDemo.routeName,
-      builder: (context) => const TweenSequenceDemo()),
-  Demo(
-      name: 'Fade Transition',
-      route: FadeTransitionDemo.routeName,
-      builder: (context) => const FadeTransitionDemo()),
+      name: 'AnimatedBuilder', route: AnimatedBuilderDemo.routeName, builder: (context) => const AnimatedBuilderDemo()),
+  Demo(name: 'Custom Tween', route: CustomTweenDemo.routeName, builder: (context) => const CustomTweenDemo()),
+  Demo(name: 'Tween Sequences', route: TweenSequenceDemo.routeName, builder: (context) => const TweenSequenceDemo()),
+  Demo(name: 'Fade Transition', route: FadeTransitionDemo.routeName, builder: (context) => const FadeTransitionDemo()),
 ];
 
 final miscDemos = [
-  Demo(
-      name: 'Expandable Card',
-      route: ExpandCardDemo.routeName,
-      builder: (context) => const ExpandCardDemo()),
-  Demo(
-      name: 'Carousel',
-      route: CarouselDemo.routeName,
-      builder: (context) => CarouselDemo()),
-  Demo(
-      name: 'Focus Image',
-      route: FocusImageDemo.routeName,
-      builder: (context) => const FocusImageDemo()),
-  Demo(
-      name: 'Card Swipe',
-      route: CardSwipeDemo.routeName,
-      builder: (context) => const CardSwipeDemo()),
+  Demo(name: 'Expandable Card', route: ExpandCardDemo.routeName, builder: (context) => const ExpandCardDemo()),
+  Demo(name: 'Carousel', route: CarouselDemo.routeName, builder: (context) => CarouselDemo()),
+  Demo(name: 'Focus Image', route: FocusImageDemo.routeName, builder: (context) => const FocusImageDemo()),
+  Demo(name: 'Card Swipe', route: CardSwipeDemo.routeName, builder: (context) => const CardSwipeDemo()),
   Demo(
       name: 'Repeating Animation',
       route: RepeatingAnimationDemo.routeName,
       builder: (context) => const RepeatingAnimationDemo()),
-  Demo(
-      name: 'Spring Physics',
-      route: PhysicsCardDragDemo.routeName,
-      builder: (context) => const PhysicsCardDragDemo()),
-  Demo(
-      name: 'AnimatedList',
-      route: AnimatedListDemo.routeName,
-      builder: (context) => const AnimatedListDemo()),
+  Demo(name: 'Spring Physics', route: PhysicsCardDragDemo.routeName, builder: (context) => const PhysicsCardDragDemo()),
+  Demo(name: 'AnimatedList', route: AnimatedListDemo.routeName, builder: (context) => const AnimatedListDemo()),
   Demo(
       name: 'AnimatedPositioned',
       route: AnimatedPositionedDemo.routeName,
@@ -110,21 +78,16 @@ final miscDemos = [
       name: 'AnimatedSwitcher',
       route: AnimatedSwitcherDemo.routeName,
       builder: (context) => const AnimatedSwitcherDemo()),
-  Demo(
-      name: 'Hero Animation',
-      route: HeroAnimationDemo.routeName,
-      builder: (context) => const HeroAnimationDemo()),
+  Demo(name: 'Hero Animation', route: HeroAnimationDemo.routeName, builder: (context) => const HeroAnimationDemo()),
   Demo(
       name: 'Curved Animation',
       route: CurvedAnimationDemo.routeName,
       builder: (context) => const CurvedAnimationDemo()),
 ];
 
-final basicDemoRoutes =
-    Map.fromEntries(basicDemos.map((d) => MapEntry(d.route, d.builder)));
+final basicDemoRoutes = Map.fromEntries(basicDemos.map((d) => MapEntry(d.route, d.builder)));
 
-final miscDemoRoutes =
-    Map.fromEntries(miscDemos.map((d) => MapEntry(d.route, d.builder)));
+final miscDemoRoutes = Map.fromEntries(miscDemos.map((d) => MapEntry(d.route, d.builder)));
 
 final allRoutes = <String, WidgetBuilder>{
   ...basicDemoRoutes,
@@ -152,7 +115,7 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final headerStyle = Theme.of(context).textTheme.headline6;
+    final headerStyle = Theme.of(context).textTheme.titleLarge;
     return Scaffold(
       appBar: AppBar(
         title: const Text('Animation Samples'),

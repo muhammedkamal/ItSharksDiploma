@@ -26,11 +26,11 @@ class AppThemes {
       ),
     ),
     textTheme: const TextTheme(
-      bodyText1: TextStyle(fontSize: 14),
-      bodyText2: TextStyle(
+      bodyLarge: TextStyle(fontSize: 14),
+      bodyMedium: TextStyle(
         fontSize: 18,
       ),
-      headline6: TextStyle(
+      titleLarge: TextStyle(
         fontSize: 28,
       ),
     ),

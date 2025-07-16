@@ -97,10 +97,8 @@ class _AuthCardState extends State<AuthCard> {
     _formKey.currentState!.save();
 
     BlocProvider.of<AuthBloc>(context).add(_authMode == AuthMode.Login
-        ? AuthUsingEmailAndPassword(
-            emailController.text, _passwordController.text)
-        : RegisterUsingEmailAndPassword(
-            emailController.text, _passwordController.text));
+        ? AuthUsingEmailAndPassword(emailController.text, _passwordController.text)
+        : RegisterUsingEmailAndPassword(emailController.text, _passwordController.text));
   }
 
   void _switchAuthMode() {
@@ -133,8 +131,7 @@ class _AuthCardState extends State<AuthCard> {
           child: AnimatedContainer(
             duration: const Duration(seconds: 1),
             height: _authMode == AuthMode.Signup ? 320 : 260,
-            constraints: BoxConstraints(
-                minHeight: _authMode == AuthMode.Signup ? 320 : 260),
+            constraints: BoxConstraints(minHeight: _authMode == AuthMode.Signup ? 320 : 260),
             width: deviceSize.width * 0.75,
             padding: const EdgeInsets.all(16.0),
             child: Form(
@@ -161,8 +158,7 @@ class _AuthCardState extends State<AuthCard> {
                     if (_authMode == AuthMode.Signup)
                       TextFormField(
                         enabled: _authMode == AuthMode.Signup,
-                        decoration:
-                            InputDecoration(labelText: 'Confirm Password'),
+                        decoration: InputDecoration(labelText: 'Confirm Password'),
                         obscureText: true,
                         validator: _authMode == AuthMode.Signup
                             // ignore: missing_return
@@ -179,16 +175,13 @@ class _AuthCardState extends State<AuthCard> {
                     state is AuthLoading
                         ? CircularProgressIndicator()
                         : ElevatedButton(
-                            child: Text(_authMode == AuthMode.Login
-                                ? 'LOGIN'
-                                : 'SIGN UP'),
+                            child: Text(_authMode == AuthMode.Login ? 'LOGIN' : 'SIGN UP'),
                             onPressed: _submit,
                             style: ElevatedButton.styleFrom(
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(30),
                               ),
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: 30.0, vertical: 8.0),
+                              padding: EdgeInsets.symmetric(horizontal: 30.0, vertical: 8.0),
                             )
                             /* shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(30),
@@ -200,17 +193,14 @@ class _AuthCardState extends State<AuthCard> {
                             ,
                           ),
                     Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 30.0, vertical: 4),
+                      padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 4),
                       child: TextButton(
-                        child: Text(
-                            '${_authMode == AuthMode.Login ? 'SIGNUP' : 'LOGIN'} INSTEAD'),
+                        child: Text('${_authMode == AuthMode.Login ? 'SIGNUP' : 'LOGIN'} INSTEAD'),
                         onPressed: _switchAuthMode,
                         style: TextButton.styleFrom(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: 30.0, vertical: 4),
+                          padding: EdgeInsets.symmetric(horizontal: 30.0, vertical: 4),
                           tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                          primary: Theme.of(context).primaryColor,
+                          foregroundColor: Theme.of(context).primaryColor,
                         ) /* ButtonStyle(
                             tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                           ) */
